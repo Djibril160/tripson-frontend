@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 0;
+  background-image: url('/Indonesia tpl Background.JPG');
+  background-size: cover;
+}
+
+.title {
+  line-height: 1.15;
+  font-size: 4rem;
+  background: #000000;
+  background: linear-gradient(to left, #000000 0%, #FFFFFF 50%, #000000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover, .title a:focus, .title a:active {
+  text-decoration: underline;
+}
+
+
