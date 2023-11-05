@@ -18,17 +18,6 @@ function Home() {
   const [loginUsername, setLoginUsername] = useState(null);
   const [loginPassword, setLoginPassword] = useState(null);
 
-  // const showModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleOk = () => {
-  //   setIsModalOpen(false);
-  // };
-
-  // const handleCancel = () => {
-  //   setIsModalOpen(false);
-  // };
 
   const showModal = () => {
     setOpen(true);
@@ -63,7 +52,7 @@ function Home() {
   }; 
 
 
-  // function to create a new user
+  // function to login
   const handleLogin = () => {
     fetch('http://localhost:3000/login', {
       method: 'POST',
@@ -72,8 +61,8 @@ function Home() {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      // if signup successfully, token is sent
+      console.log(data, "login reussi");
+      // if login successfully, token is sent
       if (data && data.token) {
         // stock token in reducer
         dispatch(login({ token: data.token }));
