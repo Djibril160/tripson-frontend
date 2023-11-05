@@ -14,6 +14,8 @@ function Home() {
   const [signupUsername, setSignupUsername] = useState(null);
   const [signupPassword, setSignupPassword] = useState(null);
   const [city, setCity] = useState(null);
+  const [loginUsername, setLoginUsername] = useState(null);
+  const [loginPassword, setLoginPassword] = useState(null);
 
   // function to create a new user
   const handleSignup = () => {
@@ -35,6 +37,28 @@ function Home() {
       }
     });
   }; 
+
+
+  // function to create a new user
+  const handleLogin = () => {
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ username: loginUsername, password: loginPassword })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      // if signup successfully, token is sent
+      if (data && data.token) {
+        // stock token in reducer
+        dispatch(login({ token: data.token }));
+        setLoginUsername('');
+        setLoginPassword('');
+      }
+    });
+  }; 
+
 
   return (
     <div>
@@ -95,6 +119,54 @@ function Home() {
             </Button>
           </Space>
         </Card>
+
+        {/* Login section  */}
+        <Card
+          style={{
+            width: 400,
+          }}
+          className='card-login'>
+          <Space direction="vertical" >
+            <Input 
+              className='w-100 text-center' 
+              size="large" 
+              placeholder="Username" 
+              prefix={<UserOutlined />}
+              onChange={(e) => setLoginUsername(e.target.value)}
+              value={loginUsername}
+            />
+            <Space direction="horizontal">
+              <Input.Password
+                className='w-100 text-center'
+                size="large"
+                placeholder="Password"
+                onChange={(e) => setLoginPassword(e.target.value)}
+                value={loginPassword}
+                visibilityToggle={{
+                  visible: passwordVisible,
+                  onVisibleChange: setPasswordVisible,
+                }}
+              />
+              <Button
+                style={{
+                  width: 80,
+                }}
+                size="large"
+                onClick={() => setPasswordVisible((prevState) => !prevState)}
+              >
+                {passwordVisible ? 'Hide' : 'Show'}
+              </Button>
+            </Space>
+            <Button
+              className='w-100 text-center'
+              type="primary"
+              onClick={ () => handleLogin()}
+            >
+              Login
+            </Button>
+          </Space>
+        </Card>
+
       </main>
     </div>
   );
